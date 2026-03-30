@@ -1,12 +1,13 @@
-const express = require('express');
-const cookieParser = require('cookie-parser');
-const mongoSanitize = require('express-mongo-sanitize');
+const express = require("express");
+const cookieParser = require("cookie-parser");
+const mongoSanitize = require("express-mongo-sanitize");
 // const helmet = require('helmet');
-const xssClean = require('xss-clean');
-const expressRateLimit = require('express-rate-limit');
-const hpp = require('hpp');
-const cors = require('cors');
-const logger = require('./logger');
+const xssClean = require("xss-clean");
+const expressRateLimit = require("express-rate-limit");
+const hpp = require("hpp");
+const cors = require("cors");
+const logger = require("./logger");
+const config = require("../config");
 
 const configureMiddleware = (app) => {
   // Body-parser middleware
@@ -35,8 +36,31 @@ const configureMiddleware = (app) => {
   // Prevent http param pollution
   app.use(hpp());
 
-  // Enable CORS
-  app.use(cors());
+  // Enable CORS - allow requests from frontend in production
+  const corsOptions = {
+    origin: function (origin, callback) {
+      // Allow requests with no origin (like mobile apps or curl requests)
+      if (process.env.NODE_ENV === "production") {
+        const allowedOrigins = [
+          process.env.FRONTEND_URL,
+          "http://localhost:3000",
+          "http://localhost:3030",
+        ];
+        // Filter out undefined values (in case FRONTEND_URL is not set)
+        const validOrigins = allowedOrigins.filter(Boolean);
+        if (!origin || validOrigins.indexOf(origin) !== -1) {
+          callback(null, true);
+        } else {
+          callback(new Error("Not allowed by CORS"));
+        }
+      } else {
+        // Allow all origins in development
+        callback(null, true);
+      }
+    },
+    credentials: true,
+  };
+  app.use(cors(corsOptions));
 
   // Custom logging middleware
   app.use(logger);

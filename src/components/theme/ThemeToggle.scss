@@ -1,0 +1,88 @@
+.theme-toggle {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  .toggle-track {
+    width: 60px;
+    height: 30px;
+    border-radius: 15px;
+    background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%);
+    padding: 3px;
+    transition: background 0.3s ease;
+    position: relative;
+  }
+
+  &.light .toggle-track {
+    background: linear-gradient(135deg, #87ceeb 0%, #ffd700 100%);
+  }
+
+  .toggle-thumb {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  &.dark .toggle-thumb {
+    transform: translateX(0);
+  }
+
+  &.light .toggle-thumb {
+    transform: translateX(30px);
+  }
+
+  .icon {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.3s ease;
+
+    &.moon {
+      color: #1a1a2e;
+    }
+
+    &.sun {
+      color: #f59e0b;
+    }
+  }
+}
+
+// Alternative compact version for header
+.theme-toggle-compact {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #fff;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  .icon {
+    width: 18px;
+    height: 18px;
+  }
+}

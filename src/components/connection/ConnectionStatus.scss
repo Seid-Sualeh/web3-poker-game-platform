@@ -1,0 +1,71 @@
+.connection-status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 20px;
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+
+  .status-icon {
+    font-size: 0.75rem;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  .status-text {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .reconnect-btn {
+    background: rgba(233, 69, 96, 0.8);
+    border: none;
+    color: #fff;
+    padding: 0.25rem 0.75rem;
+    border-radius: 10px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: rgba(233, 69, 96, 1);
+    }
+  }
+
+  &.connecting,
+  &.reconnecting {
+    .status-icon {
+      animation: spin 1s linear infinite;
+    }
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// Light theme support
+[data-theme="light"] {
+  .connection-status {
+    background: rgba(0, 0, 0, 0.1);
+
+    .status-text {
+      color: rgba(26, 26, 46, 0.8);
+    }
+  }
+}

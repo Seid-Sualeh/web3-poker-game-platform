@@ -1,0 +1,65 @@
+# Render Backend Service Configuration
+# Deploy this separately from the frontend
+
+services:
+  - type: web
+    name: poker-backend
+    env: node
+    region: oregon
+    # Build only the server dependencies using the server package.json
+    buildCommand: cd server && npm install
+    # Run the server from server directory
+    startCommand: cd server && node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: FRONTEND_URL
+        # Replace with your actual Vercel frontend URL after deployment
+        value: https://your-project.vercel.app
+      # Database - REQUIRED
+      - key: MONGO_URI
+        sync: false
+      # Auth - REQUIRED
+      - key: JWT_SECRET
+        sync: false
+      # Web3 APIs
+      - key: ALCHEMY_API_KEY
+        sync: false
+      - key: WEB3_PROVIDER_URL
+        sync: false
+      # Auth verification APIs - REQUIRED for app to start
+      - key: AUTH_API_1
+        sync: false
+      - key: AUTH_API_2
+        sync: false
+      # Optional APIs
+      - key: ETHERSCAN_API_KEY
+        sync: false
+      - key: POLYGON_RPC_URL
+        sync: false
+      - key: POLYGONSCAN_API_KEY
+        sync: false
+      - key: INFURA_IPFS_PROJECT_ID
+        sync: false
+      - key: INFURA_IPFS_PROJECT_SECRET
+        sync: false
+      - key: PINATA_API_KEY
+        sync: false
+      - key: AWS_SECRET_ACCESS_KEY
+        sync: false
+      - key: PINATA_API_SECRET
+        sync: false
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: COINBASE_COMMERCE_API_KEY
+        sync: false
+      - key: AWS_ACCESS_KEY_ID
+        sync: false
+      - key: AWS_REGION
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: SENTRY_DSN
+        sync: false
